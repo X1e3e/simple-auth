@@ -20,11 +20,15 @@ public final class SLlogin extends JavaPlugin {
     private DatabaseManager databaseManager;
     private LoginListener loginListener;
     private ApiServer apiServer;
+    private String lang;
+    private org.bukkit.configuration.file.FileConfiguration langConfig;
 
     @Override
     public void onEnable() {
         // Load default config
         saveDefaultConfig();
+        lang = getConfig().getString("lang", "ru").toLowerCase();
+        loadLangConfig();
 
         // Initialize database
         databaseManager = new DatabaseManager(this);
@@ -91,11 +95,35 @@ public final class SLlogin extends JavaPlugin {
      * Helper to get a message from configuration, applying colors.
      */
     public String getMessage(String path) {
-        String msg = getConfig().getString(path);
+        String key = path;
+        if (path.startsWith("messages.")) {
+            key = path.substring(9);
+        }
+        String msg = langConfig.getString(key);
+        if (msg == null) {
+            msg = langConfig.getString("messages." + key);
+        }
         if (msg == null) {
             return ChatColor.RED + "Message not found: " + path;
         }
         return ChatColor.translateAlternateColorCodes('&', msg);
+    }
+
+    public void loadLangConfig() {
+        java.io.File langFolder = new java.io.File(getDataFolder(), "lang");
+        if (!langFolder.exists()) {
+            langFolder.mkdirs();
+        }
+        java.io.File langFile = new java.io.File(langFolder, "messages_" + lang + ".yml");
+        if (!langFile.exists()) {
+            try {
+                saveResource("lang/messages_ru.yml", false);
+            } catch (Exception ignored) {}
+            try {
+                saveResource("lang/messages_en.yml", false);
+            } catch (Exception ignored) {}
+        }
+        langConfig = org.bukkit.configuration.file.YamlConfiguration.loadConfiguration(new java.io.File(langFolder, "messages_" + lang + ".yml"));
     }
 
     /**
@@ -103,6 +131,8 @@ public final class SLlogin extends JavaPlugin {
      */
     public void reloadPlugin() {
         reloadConfig();
+        lang = getConfig().getString("lang", "ru").toLowerCase();
+        loadLangConfig();
 
         // Restart API server
         if (apiServer != null) {

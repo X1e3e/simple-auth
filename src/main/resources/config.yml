@@ -1,5 +1,8 @@
 # SLlogin Configuration
 
+# Язык плагина: "ru" или "en"
+lang: "ru"
+
 # Настройки базы данных
 database:
   # Выберите тип: "sqlite" или "mysql"
@@ -43,33 +46,9 @@ security:
   # Требует online-mode: true на сервере ИЛИ включенный online-mode на BungeeCord/Velocity прокси с форвардингом UUID.
   premium-auto-login: true
 
-# Встроенный HTTP API для интеграции с сайтом (например, для смены пароля на skylands.online)
+# Встроенный HTTP API для интеграции с сайтом
 api:
   enabled: false
   port: 8080
   # Секретный ключ для авторизации запросов. ОБЯЗАТЕЛЬНО ИЗМЕНИТЕ ЕГО!
   key: "change-me-to-a-very-secure-secret-key"
-
-# Сообщения (поддерживают цветовые коды &)
-messages:
-  welcome-register: "&aДобро пожаловать на SkyLand! &fЗарегистрируйтесь: &e/register <пароль> <повтор_пароль>"
-  welcome-login: "&aДобро пожаловать на SkyLand! &fВведите пароль: &e/login <пароль>"
-  register-success: "&aВы успешно зарегистрировались и вошли!"
-  login-success: "&aВы успешно вошли!"
-  auto-login-success: "&aАвтоматический вход по IP. Добро пожаловать на SkyLand!"
-  premium-login-success: "&aОбнаружена лицензия! Автоматический вход. Добро пожаловать на SkyLand!"
-  wrong-password: "&cНеверный пароль! Осталось попыток: %d"
-  passwords-dont-match: "&cПароли не совпадают!"
-  password-too-short: "&cПароль слишком короткий! Минимальная длина: %d символов"
-  already-registered: "&cВы уже зарегистрированы! Используйте /login <пароль>"
-  already-logged-in: "&cВы уже вошли в систему!"
-  not-registered: "&cВы не зарегистрированы! Используйте /register <пароль> <повтор_пароль>"
-  must-login: "&cВам необходимо войти в систему!"
-  kick-timeout: "&cВремя на авторизацию истекло!"
-  kick-attempts: "&cПревышено количество попыток ввода пароля!"
-  password-changed: "&aВаш пароль был успешно изменен!"
-  password-changed-by-admin: "&aАдминистратор изменил ваш пароль!"
-  invalid-args: "&cНедостаточно аргументов!"
-  no-permission: "&cУ вас нет прав!"
-  player-not-found: "&cИгрок не найден!"
-  api-disabled: "&cHTTP API отключен в конфигурации плагина."
