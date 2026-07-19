@@ -1,0 +1,26 @@
+name: SLlogin
+version: '${version}'
+main: skylands.online.sLlogin.SLlogin
+api-version: '26.2'
+load: POSTWORLD
+
+commands:
+  login:
+    description: "Войти под своим паролем"
+    usage: "/login <пароль>"
+  register:
+    description: "Зарегистрировать новый аккаунт"
+    usage: "/register <пароль> <повтор_пароль>"
+  changepassword:
+    description: "Сменить текущий пароль"
+    usage: "/changepassword <старый_пароль> <новый_пароль>"
+    aliases: [cp]
+  sllogin:
+    description: "Администрирование плагина авторизации"
+    permission: sllogin.admin
+    usage: "/sllogin <reload | unregister | forcesetpassword>"
+
+permissions:
+  sllogin.admin:
+    description: "Доступ к административным командам SLlogin"
+    default: op

@@ -1,0 +1,75 @@
+# SLlogin Configuration
+
+# Настройки базы данных
+database:
+  # Выберите тип: "sqlite" или "mysql"
+  type: "sqlite"
+  sqlite:
+    file: "database.db"
+  mysql:
+    host: "localhost"
+    port: 3306
+    database: "sllogin"
+    username: "root"
+    password: ""
+    useSSL: false
+
+# Настройки паролей
+password:
+  # Алгоритм хеширования: SHA256, PLAIN_SHA256, или DOUBLE_SHA256
+  # - SHA256: SHA-256 с солью (Рекомендуется)
+  # - PLAIN_SHA256: Обычный SHA-256 без соли (для простых интеграций)
+  # - DOUBLE_SHA256: sha256(sha256(password)) (для совместимости с AuthMe)
+  algorithm: "SHA256"
+  
+  # Минимальная длина пароля
+  min-length: 6
+
+# Авторизация по IP (сессии)
+ip-autologin:
+  enabled: true
+  # Время действия сессии в часах. В течение этого времени игроку не нужно будет вводить пароль при входе с того же IP.
+  session-hours: 72
+
+# Настройки безопасности для неавторизованных игроков
+security:
+  # Время в секундах на авторизацию до кика
+  timeout-seconds: 60
+  # Максимальное количество попыток ввода пароля до кика
+  max-attempts: 3
+  # Накладывать ли эффект слепоты на игрока при входе
+  apply-blindness: true
+  # Автоматический вход для игроков с лицензией (проверяется UUID)
+  # Требует online-mode: true на сервере ИЛИ включенный online-mode на BungeeCord/Velocity прокси с форвардингом UUID.
+  premium-auto-login: true
+
+# Встроенный HTTP API для интеграции с сайтом (например, для смены пароля на skylands.online)
+api:
+  enabled: false
+  port: 8080
+  # Секретный ключ для авторизации запросов. ОБЯЗАТЕЛЬНО ИЗМЕНИТЕ ЕГО!
+  key: "change-me-to-a-very-secure-secret-key"
+
+# Сообщения (поддерживают цветовые коды &)
+messages:
+  welcome-register: "&aДобро пожаловать на SkyLand! &fЗарегистрируйтесь: &e/register <пароль> <повтор_пароль>"
+  welcome-login: "&aДобро пожаловать на SkyLand! &fВведите пароль: &e/login <пароль>"
+  register-success: "&aВы успешно зарегистрировались и вошли!"
+  login-success: "&aВы успешно вошли!"
+  auto-login-success: "&aАвтоматический вход по IP. Добро пожаловать на SkyLand!"
+  premium-login-success: "&aОбнаружена лицензия! Автоматический вход. Добро пожаловать на SkyLand!"
+  wrong-password: "&cНеверный пароль! Осталось попыток: %d"
+  passwords-dont-match: "&cПароли не совпадают!"
+  password-too-short: "&cПароль слишком короткий! Минимальная длина: %d символов"
+  already-registered: "&cВы уже зарегистрированы! Используйте /login <пароль>"
+  already-logged-in: "&cВы уже вошли в систему!"
+  not-registered: "&cВы не зарегистрированы! Используйте /register <пароль> <повтор_пароль>"
+  must-login: "&cВам необходимо войти в систему!"
+  kick-timeout: "&cВремя на авторизацию истекло!"
+  kick-attempts: "&cПревышено количество попыток ввода пароля!"
+  password-changed: "&aВаш пароль был успешно изменен!"
+  password-changed-by-admin: "&aАдминистратор изменил ваш пароль!"
+  invalid-args: "&cНедостаточно аргументов!"
+  no-permission: "&cУ вас нет прав!"
+  player-not-found: "&cИгрок не найден!"
+  api-disabled: "&cHTTP API отключен в конфигурации плагина."
